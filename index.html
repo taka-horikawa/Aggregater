@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>競馬データ集計アプリ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏇 競馬データ集計アプリ</h1>
+            <p>CSVファイルを読み込んで、レースデータを分析・集計します</p>
+        </header>
+
+        <section class="upload-section">
+            <div class="upload-area">
+                <input type="file" id="csvFile" accept=".csv" style="display: none;">
+                <label for="csvFile" class="upload-button">
+                    📁 CSVファイルを選択
+                </label>
+                <p class="file-info" id="fileInfo">ファイルが選択されていません</p>
+            </div>
+        </section>
+
+        <section class="filter-section" id="filterSection" style="display: none;">
+            <h2>フィルター設定</h2>
+            <div class="filter-controls">
+                <div class="filter-item">
+                    <label for="venueFilter">競馬場：</label>
+                    <select id="venueFilter" required>
+                        <option value="" disabled selected>選択してください</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="monthSelect">集計月:</label>
+                    <select id="monthSelect"></select>
+                </div>
+                <div class="filter-item">
+                    <label for="thresholdInput">金額閾値（円）:</label>
+                    <input type="number" id="thresholdInput" min="0" step="1000" placeholder="例: 5000" value="5000">
+                </div>
+                <div class="filter-item">
+                    <label for="raceCountMin">総レース数（件数以上）:</label>
+                    <input type="number" id="raceCountMin" min="1" step="1" placeholder="例: 3" value="3">
+                </div>
+                <div class="filter-item">
+                    <label for="hitRateMin">的中率（%以上）:</label>
+                    <input type="number" id="hitRateMin" min="0" max="100" step="1" placeholder="例: 50" value="50">
+                </div>
+                <button id="resetFilter" class="reset-button">リセット</button>
+            </div>
+        </section>
+
+        <section class="stats-section" id="statsSection" style="display: none;">
+            <h2>集計結果</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>総レース数</h3>
+                    <p class="stat-value" id="totalRaces">0</p>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <h3>月間分析</h3>
+                <div class="table-wrapper">
+                    <table id="raceDetailTable">
+                        <thead>
+                            <tr>
+                                <th>競馬場</th>
+                                <th>レース番号</th>
+                                <th>コース</th>
+                                <th>距離</th>
+                                <th>出走頭数</th>
+                                <th>総レース数</th>
+                                <th>金額閾値超え</th>
+                                <th>的中率</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raceDetailBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <h3>年間分析</h3>
+                <div class="table-wrapper">
+                    <table id="raceDetailTable2">
+                        <thead>
+                            <tr>
+                                <th>競馬場</th>
+                                <th>レース番号</th>
+                                <th>コース</th>
+                                <th>距離</th>
+                                <th>出走頭数</th>
+                                <th>総レース数</th>
+                                <th>金額閾値超え</th>
+                                <th>的中率</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raceDetailBody2"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
